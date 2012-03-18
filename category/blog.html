@@ -49,10 +49,10 @@
         
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href=".././welcome-to-the-world.html">Welcome to the World</a></h1> 
+                    <h1 class="entry-title"><a href=".././creating-a-blog-in-python-hosted-on-github-using-pelican.html">Creating a blog in Python hosted on GitHub using Pelican</a></h1> 
                     <footer class="post-info">
-        <abbr class="published" title="2011-03-12T00:00:00">
-                Sat 12 March 2011
+        <abbr class="published" title="2011-03-17T00:00:00">
+                Thu 17 March 2011
         </abbr>
 
         
@@ -61,10 +61,128 @@
         </address>
         
 <p>In <a href=".././category/blog.html">blog</a>. </p>
+<p>tags: <a href=".././tag/blog.html">blog</a><a href=".././tag/python.html">python</a></p>
 
 
+</footer><!-- /.post-info --><p>Tools don't make a good writer, but good tools can certainly help a writer get more done.</p>
+<p>I've constantly struggled with the internal workings of Wordpress and always wanted a blog built on python. I've tried rolling my own blog in Django, but ultimately I don't want to maintain my own blog site.</p>
+<p>I want something that is simple, light weight, and will get out of my way.</p>
+<p>I think I've found a solution.</p>
+<h2>Enter Pelican</h2>
+<p>Pelican is a static page generator much like ruby's Jekyll. </p>
+<p>It's written and maintained by <a href="https://twitter.com/#!/ametaireau">Alexis Métaireau</a>. </p>
+<p>Why Pelican? Because I:</p>
+<ul>
+<li>can write blog posts in Sublime using markdown</li>
+<li>don't need an internet connection to write</li>
+<li>can publish posts using git</li>
+<li>have free hosting via <a href="http://pages.github.com/">GitHub pages</a> that scales with me so if ever hit the front page of <a href="http://news.ycombinator.com/">HN</a> I'm good to go. </li>
+</ul>
+<h2>How to setup a blog with Pelican</h2>
+<p>Setting up a blog with Python is pretty easy even for someone who hasn't written a ton of code.</p>
+<p>First create a repo on GitHub with your repository. Mine is titled wadefoster.github.com.</p>
+<p>Next you need to create a directory for storing your blog locally:</p>
+<div class="codehilite"><pre><span class="nb">mkdir</span> <span class="n">mysite</span>
+<span class="n">cd</span> <span class="n">mysite</span>
+</pre></div>
 
-</footer><!-- /.post-info --><p>Coming out with a dandy blog for my personal stuff related to startups and other lifestyle related things.</p><p>There are <a href=".././welcome-to-the-world.html#disqus_thread">comments</a>.</p>
+
+<p>Once you have your directory set up you can optionally choose to create a <a href="http://www.doughellmann.com/docs/virtualenvwrapper/#">virtual environment</a> though this step isn't necessary.</p>
+<div class="codehilite"><pre><span class="n">mkvritualenv</span> <span class="n">env_mysite</span>
+<span class="n">workon</span> <span class="n">env_mysite</span>
+</pre></div>
+
+
+<p>Then run the following set of commands to make sure you initialize git and are able to push to GitHub. Substitute your repo name for mine where applicable. </p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">init</span>
+<span class="n">touch</span> <span class="n">README</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">README</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;first commit&#39;</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="nv">@github</span><span class="o">.</span><span class="n">com:WadeFoster</span><span class="o">/</span><span class="n">wadefoster</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="nb">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+
+
+<p>Congrats. You've successful made your first commit. </p>
+<p>From here we are ready to install pelican and markdown.</p>
+<div class="codehilite"><pre><span class="n">pip</span> <span class="n">install</span> <span class="n">pelican</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">markdown</span>
+</pre></div>
+
+
+<p>The last thing you need to do is configure your settings file. </p>
+<p>In the root of your directory create a settings.py file. Here's mine as an example:</p>
+<div class="codehilite"><pre><span class="c1"># File Name: settings.py</span>
+
+<span class="n">AUTHOR</span> <span class="o">=</span> <span class="s">&#39;Wade Foster&#39;</span>
+<span class="n">CATEGORY_FEED_RSS</span> <span class="o">=</span> <span class="s">&#39;feeds/%s.rss.xml&#39;</span>
+<span class="n">DEFAULT_CATEGORY</span> <span class="o">=</span> <span class="s">&#39;blog&#39;</span>
+<span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s">&#39;wadefoster&#39;</span>
+<span class="n">FEED_RSS</span> <span class="o">=</span> <span class="s">&#39;feeds/all.rss.xml&#39;</span>
+<span class="n">GITHUB_URL</span> <span class="o">=</span> <span class="s">&#39;https://github.com/wadefoster/wadefoster.github.com&#39;</span>
+<span class="n">GOOGLE_ANALYTICS</span><span class="o">=</span><span class="s">&#39;UA-30070965-1&#39;</span>
+<span class="n">SITEURL</span> <span class="o">=</span> <span class="s">&#39;http://wadefoster.github.com&#39;</span>
+<span class="n">SITENAME</span> <span class="o">=</span> <span class="s">&#39;Wade Foster&#39;</span>
+<span class="n">SOCIAL</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;twitter&#39;</span><span class="p">,</span> <span class="s">&#39;http://twitter.com/wadefoster&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s">&#39;github&#39;</span><span class="p">,</span> <span class="s">&#39;https://github.com/wadefoster&#39;</span><span class="p">),)</span>
+<span class="n">TAG_FEED</span> <span class="o">=</span> <span class="s">&#39;feeds/%s.atom.xml&#39;</span>
+<span class="n">TIMEZONE</span> <span class="o">=</span> <span class="s">&quot;America/Chicago&quot;</span>
+<span class="n">THEME</span><span class="o">=</span><span class="s">&#39;notmyidea&#39;</span>
+<span class="n">TWITTER_USERNAME</span> <span class="o">=</span> <span class="s">&#39;wadefoster&#39;</span>
+</pre></div>
+
+
+<p>Now you are ready to start writing.</p>
+<h2>Writing blog posts with Pelican using Markdown</h2>
+<p>Pelican has us put all of our posts in a subdirectory within the root of our site.</p>
+<div class="codehilite"><pre><span class="nb">mkdir</span> <span class="n">posts</span>
+</pre></div>
+
+
+<p>Personally, I call this directory 'posts.' In practice I've seen it called 'content,' 'source,' and a number of other things.</p>
+<p>Inside the directory create and open a file called first.md. This is where we'll compose our first post using markdown.</p>
+<p>Posts are then formatted using <a href="http://daringfireball.net/projects/markdown/syntax">markdown</a> and you can add a post title, the content of the post, and other meta data like so.</p>
+<div class="codehilite"><pre><span class="c1"># File Name: first.md</span>
+
+<span class="n">Date:</span> <span class="mi">2011</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">17</span>
+<span class="n">Title:</span> <span class="n">My</span> <span class="n">First</span> <span class="n">Post</span>
+<span class="n">Tags:</span> <span class="n">blog</span><span class="p">,</span> <span class="n">python</span>
+
+<span class="n">Your</span> <span class="n">content</span> <span class="n">goes</span> <span class="n">here</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Save your post and you are ready to publish. </p>
+<h2>Publishing blog posts with Pelican</h2>
+<p>First let's generate our blog.</p>
+<div class="codehilite"><pre><span class="n">pelican</span> <span class="n">posts</span> <span class="o">-</span><span class="n">o</span> <span class="o">.</span> <span class="o">-</span><span class="n">s</span> <span class="n">settings</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+
+
+<p>We run the pelican command, point it to our posts directory, output the generated content to root and apply our settings file.</p>
+<p>Next make sure things are running locally so lets fire up a server to view our blog. This should fire up our site on port 8000. </p>
+<div class="codehilite"><pre><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span>
+</pre></div>
+
+
+<p>Look good? Then we're ready to check in our code and push to master on GitHub for publishing. </p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;added our first post&#39;</span>
+<span class="n">git</span> <span class="nb">push</span>
+</pre></div>
+
+
+<p>In about ten minutes GitHub will build your page at username.github.com. </p>
+<h2>Using a Custom Domain</h2>
+<p>If you want to use a custom domain, GitHub provides this functionality for free. </p>
+<p>First add a file called CNAME in the root directory of your project with the domain as it's content like so.</p>
+<div class="codehilite"><pre><span class="n">wadefoster</span><span class="o">.</span><span class="n">net</span>
+</pre></div>
+
+
+<p>Next add an A record to your DNS management for GitHub pointing to <code>207.97.227.245</code>.</p>
+<p>It could take a while for the DNS changes to propagate, but you should be good to go. </p>
+<p>If you'd like to further customize your pelican blog check out the <a href="http://pelican.notmyidea.org/en/2.8/index.html">pelican documentation</a>.</p><p>There are <a href=".././creating-a-blog-in-python-hosted-on-github-using-pelican.html#disqus_thread">comments</a>.</p>
                 </article>
                 
                     

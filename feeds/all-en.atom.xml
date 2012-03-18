@@ -1,2 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Wade Foster</title><link href="http://wadefoster.github.com" rel="alternate"></link><link href="http://wadefoster.github.com/feeds/all-en.atom.xml" rel="self"></link><id>http://wadefoster.github.com</id><updated>2011-03-12T00:00:00-06:00</updated><entry><title>Welcome to the World</title><link href="http://wadefoster.github.com/welcome-to-the-world.html" rel="alternate"></link><updated>2011-03-12T00:00:00-06:00</updated><author><name>Wade Foster</name></author><id>http://wadefoster.github.com/welcome-to-the-world.html</id><summary type="html">&lt;p&gt;Coming out with a dandy blog for my personal stuff related to startups and other lifestyle related things.&lt;/p&gt;</summary></entry></feed>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Wade Foster</title><link href="http://wadefoster.github.com" rel="alternate"></link><link href="http://wadefoster.github.com/feeds/all-en.atom.xml" rel="self"></link><id>http://wadefoster.github.com</id><updated>2011-03-17T00:00:00-05:00</updated><entry><title>Creating a blog in Python hosted on GitHub using Pelican</title><link href="http://wadefoster.github.com/creating-a-blog-in-python-hosted-on-github-using-pelican.html" rel="alternate"></link><updated>2011-03-17T00:00:00-05:00</updated><author><name>Wade Foster</name></author><id>http://wadefoster.github.com/creating-a-blog-in-python-hosted-on-github-using-pelican.html</id><summary type="html">&lt;p&gt;Tools don't make a good writer, but good tools can certainly help a writer get more done.&lt;/p&gt;
+&lt;p&gt;I've constantly struggled with the internal workings of Wordpress and always wanted a blog built on python. I've tried rolling my own blog in Django, but ultimately I don't want to maintain my own blog site.&lt;/p&gt;
+&lt;p&gt;I want something that is simple, light weight, and will get out of my way.&lt;/p&gt;
+&lt;p&gt;I think I've found a solution.&lt;/p&gt;
+&lt;h2&gt;Enter Pelican&lt;/h2&gt;
+&lt;p&gt;Pelican is a static page generator much like ruby's Jekyll. &lt;/p&gt;
+&lt;p&gt;It's written and maintained by &lt;a href="https://twitter.com/#!/ametaireau"&gt;Alexis Métaireau&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Why Pelican? Because I:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;can write blog posts in Sublime using markdown&lt;/li&gt;
+&lt;li&gt;don't need an internet connection to write&lt;/li&gt;
+&lt;li&gt;can publish posts using git&lt;/li&gt;
+&lt;li&gt;have free hosting via &lt;a href="http://pages.github.com/"&gt;GitHub pages&lt;/a&gt; that scales with me so if ever hit the front page of &lt;a href="http://news.ycombinator.com/"&gt;HN&lt;/a&gt; I'm good to go. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;How to setup a blog with Pelican&lt;/h2&gt;
+&lt;p&gt;Setting up a blog with Python is pretty easy even for someone who hasn't written a ton of code.&lt;/p&gt;
+&lt;p&gt;First create a repo on GitHub with your repository. Mine is titled wadefoster.github.com.&lt;/p&gt;
+&lt;p&gt;Next you need to create a directory for storing your blog locally:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nb"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;mysite&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;mysite&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once you have your directory set up you can optionally choose to create a &lt;a href="http://www.doughellmann.com/docs/virtualenvwrapper/#"&gt;virtual environment&lt;/a&gt; though this step isn't necessary.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;mkvritualenv&lt;/span&gt; &lt;span class="n"&gt;env_mysite&lt;/span&gt;
+&lt;span class="n"&gt;workon&lt;/span&gt; &lt;span class="n"&gt;env_mysite&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then run the following set of commands to make sure you initialize git and are able to push to GitHub. Substitute your repo name for mine where applicable. &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;
+&lt;span class="n"&gt;touch&lt;/span&gt; &lt;span class="n"&gt;README&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="n"&gt;README&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;first commit&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="nv"&gt;@github&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com:WadeFoster&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;wadefoster&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="nb"&gt;push&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Congrats. You've successful made your first commit. &lt;/p&gt;
+&lt;p&gt;From here we are ready to install pelican and markdown.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;
+&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;markdown&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The last thing you need to do is configure your settings file. &lt;/p&gt;
+&lt;p&gt;In the root of your directory create a settings.py file. Here's mine as an example:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# File Name: settings.py&lt;/span&gt;
+
+&lt;span class="n"&gt;AUTHOR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Wade Foster&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;CATEGORY_FEED_RSS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;feeds/%s.rss.xml&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;DEFAULT_CATEGORY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;blog&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;DISQUS_SITENAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;wadefoster&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;FEED_RSS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;feeds/all.rss.xml&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;GITHUB_URL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;https://github.com/wadefoster/wadefoster.github.com&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;GOOGLE_ANALYTICS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;UA-30070965-1&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SITEURL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;http://wadefoster.github.com&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SITENAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Wade Foster&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SOCIAL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;twitter&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;http://twitter.com/wadefoster&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+          &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;github&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;https://github.com/wadefoster&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),)&lt;/span&gt;
+&lt;span class="n"&gt;TAG_FEED&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;feeds/%s.atom.xml&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;TIMEZONE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;America/Chicago&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;THEME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;notmyidea&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;TWITTER_USERNAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;wadefoster&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now you are ready to start writing.&lt;/p&gt;
+&lt;h2&gt;Writing blog posts with Pelican using Markdown&lt;/h2&gt;
+&lt;p&gt;Pelican has us put all of our posts in a subdirectory within the root of our site.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nb"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Personally, I call this directory 'posts.' In practice I've seen it called 'content,' 'source,' and a number of other things.&lt;/p&gt;
+&lt;p&gt;Inside the directory create and open a file called first.md. This is where we'll compose our first post using markdown.&lt;/p&gt;
+&lt;p&gt;Posts are then formatted using &lt;a href="http://daringfireball.net/projects/markdown/syntax"&gt;markdown&lt;/a&gt; and you can add a post title, the content of the post, and other meta data like so.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# File Name: first.md&lt;/span&gt;
+
+&lt;span class="n"&gt;Date:&lt;/span&gt; &lt;span class="mi"&gt;2011&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;
+&lt;span class="n"&gt;Title:&lt;/span&gt; &lt;span class="n"&gt;My&lt;/span&gt; &lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;Post&lt;/span&gt;
+&lt;span class="n"&gt;Tags:&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;
+
+&lt;span class="n"&gt;Your&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt; &lt;span class="n"&gt;goes&lt;/span&gt; &lt;span class="n"&gt;here&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Save your post and you are ready to publish. &lt;/p&gt;
+&lt;h2&gt;Publishing blog posts with Pelican&lt;/h2&gt;
+&lt;p&gt;First let's generate our blog.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We run the pelican command, point it to our posts directory, output the generated content to root and apply our settings file.&lt;/p&gt;
+&lt;p&gt;Next make sure things are running locally so lets fire up a server to view our blog. This should fire up our site on port 8000. &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;SimpleHTTPServer&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Look good? Then we're ready to check in our code and push to master on GitHub for publishing. &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;added our first post&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="nb"&gt;push&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In about ten minutes GitHub will build your page at username.github.com. &lt;/p&gt;
+&lt;h2&gt;Using a Custom Domain&lt;/h2&gt;
+&lt;p&gt;If you want to use a custom domain, GitHub provides this functionality for free. &lt;/p&gt;
+&lt;p&gt;First add a file called CNAME in the root directory of your project with the domain as it's content like so.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;wadefoster&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Next add an A record to your DNS management for GitHub pointing to &lt;code&gt;207.97.227.245&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;It could take a while for the DNS changes to propagate, but you should be good to go. &lt;/p&gt;
+&lt;p&gt;If you'd like to further customize your pelican blog check out the &lt;a href="http://pelican.notmyidea.org/en/2.8/index.html"&gt;pelican documentation&lt;/a&gt;.&lt;/p&gt;</summary><category term="blog"></category><category term="python"></category></entry></feed>
