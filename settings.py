@@ -1,6 +1,7 @@
 AUTHOR = 'Wade Foster'
 CATEGORY_FEED_RSS = 'feeds/%s.rss.xml'
 DEFAULT_CATEGORY = 'blog'
+DISPLAY_PAGES_ON_MENU = True
 DISQUS_SITENAME = 'wadefoster'
 FEED_RSS = 'feeds/all.rss.xml'
 GITHUB_URL = 'https://github.com/wadefoster/wadefoster.github.com'
