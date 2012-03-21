@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>A Pelican Blog</title><link href="../." rel="alternate"></link><link href=".././feeds/misc.atom.xml" rel="self"></link><id>../.</id><updated>2011-03-17T00:00:00Z</updated><entry><title>About</title><link href=".././about.html" rel="alternate"></link><updated>2011-03-17T00:00:00Z</updated><author><name>wadefoster</name></author><id>.././about.html</id><summary type="html">&lt;p&gt;I'm an entreprenuer, marketer, and ameteur hacker out of Columbia, MO. I spend most of my time working on &lt;a href="https://zapier.com"&gt;Zapier&lt;/a&gt; a web app that makes it really simple to integrate SaaS apps. &lt;/p&gt;
+&lt;p&gt;In my spare time I help run a local &lt;a href="http://hackcomo.com"&gt;Hacker Group&lt;/a&gt; and play tenor saxophone in a jazz quartet. &lt;/p&gt;
+&lt;h2&gt;Projects&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://zapier.com"&gt;Zapier&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://hackcomo.com"&gt;HackCoMo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="twitter.com/wadefoster"&gt;Chatter&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="about"></category></entry></feed>
